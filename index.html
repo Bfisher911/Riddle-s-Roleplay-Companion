@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle's Pocketbook of Performance & Paranoia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to bring the magical theme to life */
+        body {
+            background-color: #1a1a2e;
+            background-image: radial-gradient(circle at top right, rgba(116, 79, 168, 0.3), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(24, 49, 124, 0.3), transparent 50%);
+            font-family: 'Special Elite', cursive;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .font-title {
+            font-family: 'IM Fell English SC', serif;
+        }
+
+        /* Wobble animation for titles */
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+        .title-wobble {
+            animation: wobble 15s ease-in-out infinite;
+        }
+
+        /* Flicker animation for glowing elements */
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffd700, 0 0 20px #ffd700, 0 0 25px #ffd700, 0 0 30px #ffd700, 0 0 35px #ffd700;
+                color: #fefae0;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                color: #e0e0e0;
+            }
+        }
+        .glow-flicker {
+            animation: flicker 4s linear infinite;
+        }
+        
+        /* Embossed button style */
+        .btn-embossed {
+            background: linear-gradient(145deg, #4a3a64, #3e3054);
+            border: 2px solid #a4854f;
+            box-shadow: 2px 2px 5px #111, inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease-in-out;
+            color: #fefae0;
+        }
+        .btn-embossed:hover {
+            background: linear-gradient(145deg, #5a4a74, #4e4064);
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 10px #111, inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        .btn-embossed:active {
+            transform: translateY(1px);
+            box-shadow: 1px 1px 3px #111, inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Parchment modal style */
+        #modal-content {
+            background-color: #fefae0;
+            color: #3d3d3d;
+            border: 10px solid transparent;
+            /* Corrected SVG border to be more robust */
+            border-image: url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='0' y='0' width='100' height='100' style='fill:rgb(200,150,90);stroke-width:2;stroke:rgb(120,70,30)'/%3e%3c/svg%3e") 30 round;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        #modal.active #modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        /* Custom scrollbar for the modal */
+        #modal-content::-webkit-scrollbar {
+            width: 12px;
+        }
+        #modal-content::-webkit-scrollbar-track {
+            background: #e4d8b4;
+        }
+        #modal-content::-webkit-scrollbar-thumb {
+            background-color: #8c6f44;
+            border-radius: 20px;
+            border: 3px solid #e4d8b4;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <!-- Main Container -->
+    <div class="container mx-auto max-w-7xl">
+
+        <!-- Header -->
+        <header class="text-center p-6 mb-8 border-4 border-yellow-600/50 rounded-lg shadow-2xl bg-black/30">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-title title-wobble text-amber-200">Riddle's Pocketbook of Performance & Paranoia</h1>
+            <p class="text-lg text-gray-300 mt-2">A Chaotic Illusionist's Toolkit for the Discerningly Unreliable</p>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+            <!-- Left Column: Core Buttons -->
+            <main class="md:col-span-8 space-y-6">
+
+                <!-- Roleplay Responses -->
+                <section class="bg-black/20 p-4 rounded-lg border-2 border-purple-400/30 shadow-lg">
+                    <h2 class="text-2xl font-title text-center mb-4 glow-flicker">🎭 Roleplay Responses</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button id="whoAreYouBtn" class="btn-embossed p-4 rounded-lg font-bold text-lg">“Who Are You?”</button>
+                        <button id="whereFromBtn" class="btn-embossed p-4 rounded-lg font-bold text-lg">“Where Are You From?”</button>
+                        <button id="whatDoYouDoBtn" class="btn-embossed p-4 rounded-lg font-bold text-lg">“What Do You Do?”</button>
+                        <button id="backstoryBtn" class="btn-embossed p-4 rounded-lg font-bold text-lg">“What's Your Backstory?”</button>
+                    </div>
+                </section>
+
+                <!-- Specialty Buttons -->
+                <section class="bg-black/20 p-4 rounded-lg border-2 border-purple-400/30 shadow-lg">
+                    <h2 class="text-2xl font-title text-center mb-4 glow-flicker">🗣️ Specialty Buttons</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <button id="magicalWordBtn" class="btn-embossed p-4 rounded-lg font-bold">🧙‍♂️ Invent Magical Word</button>
+                        <button id="randomIllusionBtn" class="btn-embossed p-4 rounded-lg font-bold">🪞 Generate an Illusion</button>
+                        <button id="whisperBtn" class="btn-embossed p-4 rounded-lg font-bold">🤫 Whisper Something Strange</button>
+                        <button id="meanderingBtn" class="btn-embossed p-4 rounded-lg font-bold col-span-1 sm:col-span-2 lg:col-span-3">🌀 Meandering Thought</button>
+                    </div>
+                </section>
+
+                <!-- Illusion by Situation -->
+                <section class="bg-black/20 p-4 rounded-lg border-2 border-purple-400/30 shadow-lg">
+                    <h2 class="text-2xl font-title text-center mb-4 glow-flicker">🎭 Illusion by Situation</h2>
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                        <button id="combatDistractionBtn" class="btn-embossed p-3 rounded-lg font-bold">Combat Distraction</button>
+                        <button id="dramaticEntranceBtn" class="btn-embossed p-3 rounded-lg font-bold">Dramatic Entrance</button>
+                        <button id="socialBluffBtn" class="btn-embossed p-3 rounded-lg font-bold">Social Bluff</button>
+                        <button id="theatricalExitBtn" class="btn-embossed p-3 rounded-lg font-bold">Theatrical Exit</button>
+                        <button id="avoidingTabBtn" class="btn-embossed p-3 rounded-lg font-bold">Avoiding a Tab</button>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Column: Static Info & Signature Illusions -->
+            <aside class="md:col-span-4 space-y-6">
+                
+                <!-- Bonus Catchphrases -->
+                <section class="bg-yellow-900/20 p-4 rounded-lg border-2 border-amber-400/50 shadow-lg">
+                    <h3 class="text-xl font-title text-center mb-3 text-amber-200 glow-flicker">Bonus Catchphrases</h3>
+                    <ul class="space-y-2 text-amber-100/80 list-inside list-disc">
+                        <li>“I didn’t lie—I simply edited reality.”</li>
+                        <li>“Was that impressive? Be honest. No, wait—lie to me.”</li>
+                        <li>“I’ve been many things. Most of them untrue.”</li>
+                        <li>“Coincidence is just illusion’s lazy cousin.”</li>
+                    </ul>
+                </section>
+
+                <!-- Riddle's Illusion Guidelines -->
+                <section class="bg-gray-800/20 p-4 rounded-lg border-2 border-gray-500/50 shadow-lg">
+                    <h3 class="text-xl font-title text-center mb-3 text-gray-300">Riddle’s Illusion Guidelines</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><span class="text-green-400 font-bold">Excellent:</span> If it helps.</li>
+                        <li><span class="text-yellow-400 font-bold">Perfect:</span> If it impresses.</li>
+                        <li><span class="text-purple-400 font-bold">Ideal:</span> If it confuses everyone, including himself.</li>
+                    </ul>
+                </section>
+
+                <!-- Signature Illusions Button -->
+                <section class="p-4">
+                     <button id="signatureIllusionsBtn" class="w-full btn-embossed p-4 rounded-lg font-bold text-xl">🎩 Signature Illusions</button>
+                </section>
+            </aside>
+        </div>
+
+    </div>
+
+    <!-- Modal for displaying responses -->
+    <div id="modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 hidden">
+        <div id="modal-content" class="w-full max-w-2xl p-8 rounded-lg relative">
+            <p id="modal-text" class="text-2xl text-center"></p>
+            <button id="close-modal" class="absolute top-2 right-2 text-4xl text-gray-600 hover:text-black">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA STORE ---
+        // All the chaotic content for Riddle's responses.
+        const CONTENT = {
+            whoAreYou: [
+                "I am the shadow of a rumor whispered by a dream.", "Call me Riddle. Or Enigma. Or Larry. Depends who’s asking.", "Once a man, now a mystery wearing his skin.", "I'm the magician formerly known as alive.", "A legend in his own autobiography.", "I was born twice, and neither time was I consulted.", "Some call me a liar. I prefer the term ‘unreliable narrator.’", "Riddle. Like the puzzle, but handsomer.", "I’m your imaginary friend’s imaginary enemy.", "A perfectly ordinary wizard who happens to be extraordinary.", "A whisper with a top hat.", "My name? Pick one from the hat.", "I am the punchline to a cosmic joke.", "I’ve been erased from five histories and added to seven.", "Don’t worry who I am—worry who remembers me."
+            ],
+            whereFrom: [
+                "I hail from the Glittering Fold of Forgotten Things.", "Born under the Third Moon of Unrelenting Coincidence.", "My homeland vanished after a poorly cast illusion. Oops.", "I was raised in a circus, or maybe a library inside a circus.", "Somewhere east of logic and west of common sense.", "The place with the best sandwiches. Probably imaginary.", "A town called Mirage. It only appears in mirrors.", "The Twilight Bazaar—pop-up reality, only open Thursdays.", "Where am I from? Unclear. Where am I going? Less clear.", "A traveling illusion. I’ve just stuck with it.", "Born on a bet. Raised on a dare.", "The Floating Island of Mostly Lies.", "Between page 42 and 43 of my own book.", "The 13th District of Disbelief.", "You know that feeling you forgot something? I’m from there."
+            ],
+            whatDoYouDo: [
+                "Currently? Dramatic exits and suspicious reentries.", "I rearrange reality’s furniture.", "I fabricate truth professionally.", "I convince geese I’m royalty.", "Illusions. Delusions. Confusions. All yours.", "I curate chaos.", "I whisper into mirrors until they gossip.", "I make lies look good and truths look suspicious.", "I do what needs doing—*but theatrically.*", "Mostly I distract guards while someone else steals.", "I'm a part-time bard, full-time mischief consultant.", "I interpret destiny with jazz hands.", "Profession? Inconvenient wisdom.", "I’m in the business of plausible deniability.", "Retired sorcerer. Current rumor."
+            ],
+            backstory: [
+                "I once swallowed a cursed gemstone. It whispers compliments now.", "Raised by mirrors. They taught me to reflect.", "I accidentally inherited a kingdom. Don’t worry, I lost it.", "I trained under a wizard who never existed. Or maybe I was him?", "My childhood was a long con against fate.", "I faked my death so convincingly I mourned myself.", "I wrote a bestselling autobiography under a false name I hadn’t made up yet.", "My parents were chaos and timing.", "Once loved a banshee. We split over creative differences.", "Tried to summon a genie, got a goose. Still not over it.", "The first spell I cast turned my teacher into a rumor.", "Technically, I’m still banned from reality #7.", "I once lived in a painting. I left because of the colors.", "I was a noble until the hat scandal.", "Some say I’m a lie told by another liar who needed an alibi."
+            ],
+            magicalWords: [
+                "Spectrogravitonic reverberance", "Transplanar whizzplosion", "Arcano-fibrillated shimmerfield", "Thaumaturgical hiccup", "Hyperglamouric energy drip", "Conjurplasmic overlay", "Mystoglyphic rupture", "Quantum flambomancy", "Aether-nudging swirlflux", "Chrono-fizzle echo burst", "Psychoillusionic bloom", "Hexopraxic recursion surge", "Glimmer-twist phenomenon", "Ethereal jellyframe", "Cogno-harmonic glamoring"
+            ],
+            randomIllusions: [
+                "A parade of transparent jellyfish floating through the air playing trumpets.", "A giant goose giving a TED Talk.", "A door to nowhere that slams dramatically every 10 seconds.", "Your shadow winks when you're not looking.", "A miniature version of the party reenacting the last fight poorly.", "Bubbles that hum ominous music when touched.", "A rain cloud that follows an NPC and only rains glitter.", "A hallway that stretches forever but loops in place.", "Spectral raccoons holding a tea party on the ceiling.", "An illusory fog that smells like roasted marshmallows.", "The illusion of being watched by unseen critics with scorecards.", "A wall that insists it’s a waterfall.", "Dancing books quoting the wrong spells.", "A mirror that reflects everyone except one person—randomly.", "A floating scroll that insults people in rhymed couplets."
+            ],
+            whispers: [
+                "Your shoelace is plotting something.", "Don’t trust the door. It knows too much.", "The mirror lied to you. Again.", "I saw your future. You looked confused.", "This town is a stage. And the rats are the critics.", "One of you isn’t real. I just haven’t decided who.", "Time hiccupped when you entered.", "You smell like prophecy.", "The goose follows. Always.", "Your voice echoes too far in other dimensions.", "You're a poem that forgot its rhyme.", "The table is listening.", "This is the part where reality blinks.", "Someone’s dreamt of you. Badly.", "You’re the plot twist I didn’t see coming."
+            ],
+            meanderings: [
+                "What if stars are just the gods’ freckles?", "Does anyone else smell ideas?", "I once argued with a cloud. It won.", "I miss the taste of theoretical fruit.", "Are we figments imagining ourselves?", "Every number is odd if you're brave enough.", "What if your dreams are having nightmares about you?", "Why don’t shadows hum?", "I was almost a sandwich once. Metaphorically.", "Have you ever met a left-handed ghost?", "Why do all clocks feel guilty?", "I'm not lost—I'm conceptually adrift.", "There’s a place between seconds. I picnic there.", "Reality is just a performance we forgot to rehearse.", "You ever sneeze in reverse? No? Just me?"
+            ],
+            // Curated lists for situational illusions
+            combatDistraction: [
+                "The ground briefly turns into illusory quicksand under your enemies' feet.", "A swarm of illusory, stinging butterflies erupts from your hand.", "The sound of a charging cavalry roars from behind the enemy line.", "An illusion of a massive, angry owlbear flickers into existence for a terrifying second.", "All weapons briefly appear to be made of writhing snakes."
+            ],
+            dramaticEntrance: [
+                "You enter through a door that wasn't there a moment ago, which promptly vanishes.", "A spotlight of pure moonlight descends and follows you as you walk.", "You appear in a swirl of shimmering cards, which then flutter to the ground and disappear.", "The sound of distant, appreciative applause follows you into the room.", "You part a curtain of pure shadow to step through."
+            ],
+            socialBluff: [
+                "An illusory royal seal briefly flashes on a document you're holding.", "The faint, illusory shimmer of a truth-detecting aura surrounds you, making you seem honest.", "You gesture, and a spectral servant appears, offers you a non-existent drink, and vanishes.", "The person you're talking to briefly sees the face of a respected authority figure instead of yours.", "A faint, illusory crown of stars glimmers above your head for just a moment."
+            ],
+            theatricalExit: [
+                "You walk through a solid wall, leaving a shimmering, cartoonish outline of your body.", "You vanish in a puff of purple smoke that smells faintly of cinnamon.", "You throw a handful of glitter in the air, and by the time it settles, you're gone.", "Your shadow detaches from your feet, waves goodbye, and walks off in the opposite direction as you leave.", "You shatter into a thousand tiny, glass-like butterflies that fly away."
+            ],
+            avoidingTab: [
+                "The bartender suddenly sees you as a dear, long-lost friend they owe a favor to.", "The bill you're handed appears to be covered in incomprehensible, shifting runes.", "An illusory, very important-looking noble gestures from across the room, indicating they will cover your tab.", "You create the illusion of a large, distracting bar brawl at the other end of the room.", "You pay with a coin that looks incredibly valuable, but vanishes from the till a minute later."
+            ],
+            signatureIllusions: `
+                <h2 class="text-3xl font-title text-center mb-6">Signature Illusions</h2>
+                <ul class="space-y-4 text-left">
+                    <li><strong>✨ The Gossiping Mirror:</strong> Creates a mirror that reflects a person with an exaggerated, comical flaw or desire.</li>
+                    <li><strong>🎺 The Jellyfish Philharmonic:</strong> A parade of transparent, floating jellyfish that play surprisingly good brass band music.</li>
+                    <li><strong>🦢 The Goose of Unsolicited Advice:</strong> Summons a spectral, giant goose that follows a target, giving them terrible, nonsensical advice in a booming voice.</li>
+                    <li><strong>🚪 The Dramatic Door:</strong> An illusory, ornate door appears on any surface. It can be opened, but only leads to the other side of the surface. It slams shut dramatically after use.</li>
+                    <li><strong>🧐 The Unseen Critics:</strong> The target gets the distinct feeling of being watched and judged by invisible critics holding up scorecards.</li>
+                    <li><strong>🌫️ Marshmallow Fog:</strong> A thick fog rolls in that looks ominous but smells delightfully of roasted marshmallows.</li>
+                    <li><strong>📜 The Insulting Scroll:</strong> A floating scroll appears and follows a target, composing and reciting insulting rhyming couplets about them.</li>
+                    <li><strong>🌀 The Looping Hallway:</strong> Makes a corridor appear to stretch on forever, though anyone walking down it stays in the same place.</li>
+                    <li><strong>🦝 The Raccoon Tea Party:</strong> A group of spectral raccoons appear, sitting on the ceiling and having a very civilized tea party. They occasionally comment on the events below.</li>
+                    <li><strong>😉 Wink of the Shadow:</strong> For a brief moment, your shadow appears to wink conspiratorially at an observer.</li>
+                    <li><strong>✨ The Glitter Cloud:</strong> A small, personal rain cloud follows a target, raining only harmless, shimmering glitter.</li>
+                    <li><strong>❓ The Unreliable Reflection:</strong> Creates a mirror that randomly fails to reflect one person in the room. Who it is changes every few minutes.</li>
+                </ul>
+            `
+        };
+
+        // --- DOM ELEMENTS ---
+        const modal = document.getElementById('modal');
+        const modalText = document.getElementById('modal-text');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        // --- CORE LOGIC ---
+
+        /**
+         * Gets a random item from an array.
+         * @param {Array} arr The array to pick from.
+         * @returns {*} A random item from the array.
+         */
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        /**
+         * Shows the modal with the provided text or HTML content.
+         * @param {string} content The text or HTML to display.
+         * @param {boolean} isHtml Whether the content is HTML.
+         */
+        function showModal(content, isHtml = false) {
+            if (isHtml) {
+                modalText.innerHTML = content;
+            } else {
+                modalText.textContent = content;
+            }
+            modal.classList.remove('hidden');
+            // A tiny delay to allow the 'display' property to apply before starting the transition
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        /**
+         * Hides the modal.
+         */
+        function hideModal() {
+            modal.classList.remove('active');
+            // Wait for the transition to finish before setting display to 'none'
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Generic function to create button listeners
+        function setupButton(buttonId, contentKey) {
+            const button = document.getElementById(buttonId);
+            if(button) {
+                button.addEventListener('click', () => {
+                    const randomItem = getRandomItem(CONTENT[contentKey]);
+                    showModal(randomItem);
+                });
+            }
+        }
+
+        // Setup all the buttons
+        setupButton('whoAreYouBtn', 'whoAreYou');
+        setupButton('whereFromBtn', 'whereFrom');
+        setupButton('whatDoYouDoBtn', 'whatDoYouDo');
+        setupButton('backstoryBtn', 'backstory');
+        setupButton('magicalWordBtn', 'magicalWords');
+        setupButton('randomIllusionBtn', 'randomIllusions');
+        setupButton('whisperBtn', 'whispers');
+        setupButton('meanderingBtn', 'meanderings');
+        setupButton('combatDistractionBtn', 'combatDistraction');
+        setupButton('dramaticEntranceBtn', 'dramaticEntrance');
+        setupButton('socialBluffBtn', 'socialBluff');
+        setupButton('theatricalExitBtn', 'theatricalExit');
+        setupButton('avoidingTabBtn', 'avoidingTab');
+
+        // Special listener for the signature illusions
+        document.getElementById('signatureIllusionsBtn').addEventListener('click', () => {
+            showModal(CONTENT.signatureIllusions, true);
+        });
+
+        // Listeners for closing the modal
+        closeModalBtn.addEventListener('click', hideModal);
+        modal.addEventListener('click', (event) => {
+            // Only close if the click is on the background overlay itself
+            if (event.target === modal) {
+                hideModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                hideModal();
+            }
+        });
+
+    </script>
+</body>
+</html>
